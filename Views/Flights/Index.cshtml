@@ -1,0 +1,73 @@
+﻿@*@model IEnumerable<MDSProject.Models.Flights>*@
+@model MDSProject.Models.FlightAirlineViewModel
+
+@{
+    ViewData["Title"] = "Flights";
+}
+
+<h1>Flights</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Flights" asp-action="Index" method="get">
+    <p>
+
+        <select asp-for="FlightAirline" asp-items="Model.Airline">
+            <option value="">All</option>
+        </select>
+
+        Departure_Airport: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Flights![0].Airline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flights![0].Departure_Airport)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flights![0].Arrival_Airport)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flights![0].Flight_Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flights![0].Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Flights!) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Airline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departure_Airport)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Arrival_Airport)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flight_Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

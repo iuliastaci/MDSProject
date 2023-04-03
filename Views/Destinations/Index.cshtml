@@ -1,0 +1,66 @@
+﻿@*@model IEnumerable<MDSProject.Models.Destinations>*@
+@model MDSProject.Models.DestinationExpensivenessViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Destinations</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Destinations" asp-action="Index" method="get">
+    <p>
+        <select asp-for="DestinationExpensiveness" asp-items="Model.Expensiveness">
+            <option value="">All</option>
+        </select>
+
+        City: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Destinations![0].City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destinations![0].Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destinations![0].Best_Months_to_go)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destinations![0].Expensiveness)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Destinations!) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Best_Months_to_go)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Expensiveness)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

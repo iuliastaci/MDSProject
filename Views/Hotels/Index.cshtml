@@ -1,0 +1,66 @@
+﻿@*@model IEnumerable<MDSProject.Models.Hotels>*@
+@model MDSProject.Models.HotelCityViewModel
+
+@{
+    ViewData["Title"] = "Hotels";
+}
+
+<h1>Hotels</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Hotels" asp-action="Index" method="get">
+    <p>
+        <select asp-for="HotelCity" asp-items="Model.City">
+            <option value="">All</option>
+        </select>
+
+        City: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Hotels![0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hotels![0].City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hotels![0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hotels![0].Stars)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Hotels!) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stars)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
